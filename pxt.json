@@ -11,7 +11,8 @@
         "Timers": "github:microsoft/arcade-timers#v1.1.0",
         "Extra Effects": "github:alexszeto/extra-effects#v3.1.0",
         "pxt-arcade-image-transform": "github:robo-technical-group/pxt-arcade-image-transform#v1.0.9",
-        "Color Fading": "github:jwunderl/pxt-color#v0.2.3"
+        "Color Fading": "github:jwunderl/pxt-color#v0.2.3",
+        "pxt-status-bar": "github:jwunderl/pxt-status-bar#v0.4.2"
     },
     "files": [
         "main.blocks",
