@@ -12,9 +12,7 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     JumpAction()
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile4`, function (sprite, location) {
-    info.changeLifeBy(-1)
-    mySprite.vy = -210
-    scene.cameraShake(4, 500)
+    beDamaged(false)
 })
 controller.down.onEvent(ControllerButtonEvent.Released, function () {
     if (face == 1) {
@@ -105,124 +103,19 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
         `)
     animation.stopAnimation(animation.AnimationTypes.All, mySprite)
 })
-sprites.onOverlap(SpriteKind.attack, SpriteKind.flyer, function (sprite, otherSprite) {
-    death_animater = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.animater)
-    death_animater.setPosition(otherSprite.x, otherSprite.y)
-    animation.runImageAnimation(
-    death_animater,
-    [img`
-        . 1 1 1 1 1 . . 
-        1 1 1 1 1 1 1 . 
-        1 f f 1 f f 1 . 
-        1 f f 1 f f 1 . 
-        1 1 f 1 f 1 1 . 
-        1 f 1 1 1 f 1 . 
-        1 1 1 f 1 1 1 . 
-        1 . 1 . 1 . 1 . 
-        `,img`
-        . 1 1 1 1 1 . . 
-        1 1 1 . 1 1 1 . 
-        1 f f 1 f f 1 . 
-        1 f f 1 f f 1 . 
-        1 1 f 1 f 1 1 . 
-        1 f 1 1 1 f 1 . 
-        1 1 1 f 1 1 . . 
-        1 . 1 . 1 . 1 . 
-        `,img`
-        . 1 1 1 1 1 . . 
-        1 1 1 . 1 1 1 . 
-        1 f f 1 f f 1 . 
-        1 f f 1 f f 1 . 
-        1 1 f 1 f 1 1 . 
-        . f 1 1 1 f 1 . 
-        1 1 . f 1 1 . . 
-        1 . 1 . 1 . 1 . 
-        `,img`
-        . 1 1 1 1 1 . . 
-        1 1 1 . 1 1 1 . 
-        1 f f 1 f f 1 . 
-        1 f f 1 f f 1 . 
-        1 1 f 1 f 1 1 . 
-        . f 1 . 1 f 1 . 
-        1 1 . . 1 1 . . 
-        1 . 1 . 1 . 1 . 
-        `,img`
-        . 1 1 1 1 1 . . 
-        1 1 1 . 1 1 1 . 
-        1 . f . f f . . 
-        . f f 1 f f 1 . 
-        1 1 f 1 f . 1 . 
-        . f 1 . 1 f 1 . 
-        1 . . . 1 1 . . 
-        . . 1 . 1 . 1 . 
-        `,img`
-        . . 1 . 1 1 . . 
-        . . 1 . . . 1 . 
-        1 . f . f f . . 
-        . f . 1 f f 1 . 
-        1 1 f 1 f . 1 . 
-        . f . . 1 f 1 . 
-        1 . . . . 1 . . 
-        . . 1 . . . . . 
-        `,img`
-        . . . . 1 1 . . 
-        . . . . . . 1 . 
-        1 . . . f . . . 
-        . f . 1 . f . . 
-        1 . . . . . 1 . 
-        . . . . . . 1 . 
-        1 . . . . 1 . . 
-        . . 1 . . . . . 
-        `,img`
-        . . . . 1 . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . 1 . f . . 
-        . . . . . . 1 . 
-        . . . . . . 1 . 
-        1 . . . . . . . 
-        . . 1 . . . . . 
-        `,img`
-        . . . . 1 . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        1 . . . . . . . 
-        . . 1 . . . . . 
-        `,img`
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        `],
-    50,
-    false
-    )
-    otherSprite.destroy()
-})
+function beDamaged (bool: boolean) {
+    scene.cameraShake(4, 500)
+    info.changeLifeBy(-1)
+    mySprite.startEffect(effects.ashes, 1000)
+    if (info.life() < 4) {
+        color.startFadeFromCurrent(color.GrayScale, 500)
+    }
+    if (bool) {
+        pause(1000)
+    } else {
+        mySprite.vy = -210
+    }
+}
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     face = 1
     animation.runImageAnimation(
@@ -334,112 +227,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
         otherSprite.destroy()
         mySprite.vy = -80
     } else {
-        info.changeLifeBy(-1)
-        mySprite.startEffect(effects.ashes, 1000)
-        scene.cameraShake(4, 500)
-        pause(1000)
+        beDamaged(true)
     }
-})
-sprites.onOverlap(SpriteKind.attack, SpriteKind.shootenemy, function (sprite, otherSprite) {
-    death_animater = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.animater)
-    death_animater.ay = 500
-    death_animater.setPosition(otherSprite.x, otherSprite.y)
-    animation.runImageAnimation(
-    death_animater,
-    [img`
-        . . 2 2 2 2 2 . 
-        . 2 2 2 f f f 2 
-        . 2 2 f 9 f 9 2 
-        . 2 2 f 9 f 9 2 
-        . 2 2 f f f f . 
-        . . 2 2 2 f 2 . 
-        . . 2 2 f f 2 . 
-        . 2 2 2 f f 2 . 
-        `,img`
-        . . . . . . . . 
-        . . 2 2 2 2 . . 
-        . 2 2 f f f . . 
-        . 2 2 9 f 9 . . 
-        . 2 2 f f f . . 
-        . . 2 2 f 2 . . 
-        . . 2 f f 2 . . 
-        . . . . . . . . 
-        `,img`
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . 2 2 . . . 
-        . . 2 f f . . . 
-        . . 2 f f . . . 
-        . . . 2 f . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        `,img`
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . 2 2 . . . 
-        . . . 2 2 . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        `,img`
-        . . . . . . . . 
-        . . . d b . . . 
-        . . . 5 c . . . 
-        b c d 5 5 c c . 
-        d d 5 5 5 5 d b 
-        . . c 5 d . . . 
-        . . . d c . . . 
-        . . . b . . . . 
-        `,img`
-        . . . b b . . . 
-        . b b 5 c b b . 
-        . b 5 5 5 5 b . 
-        c c 5 5 5 5 c c 
-        c c 5 5 5 5 c c 
-        . b 5 5 5 5 b . 
-        . b b 5 c b b . 
-        . . . b b . . . 
-        `,img`
-        . . . 1 . . . . 
-        1 1 . . . . . . 
-        1 1 . 1 1 . . . 
-        . . 1 1 1 1 . . 
-        . 1 1 1 1 1 1 . 
-        . 1 1 1 1 1 1 . 
-        . . 1 1 1 1 . . 
-        . . . 1 1 . 1 . 
-        `,img`
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        `],
-    100,
-    false
-    )
-    otherSprite.destroy()
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     if (face == 1) {
@@ -470,6 +259,16 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.shootenemy, function (sprite, otherSprite) {
     if (sprite.bottom < otherSprite.y && sprite.vy > 0) {
+        if (Math.percentChance(50)) {
+            heart = sprites.create(img`
+                . 2 . 2 . 
+                2 2 2 2 2 
+                2 2 2 2 2 
+                . 2 2 2 . 
+                . . 2 . . 
+                `, SpriteKind.Food)
+            heart.setPosition(otherSprite.x, otherSprite.y)
+        }
         death_animater = sprites.create(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -571,14 +370,150 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.shootenemy, function (sprite, ot
         otherSprite.destroy()
         mySprite.vy = -80
     } else {
-        info.changeLifeBy(-1)
-        mySprite.startEffect(effects.ashes, 1000)
-        scene.cameraShake(4, 500)
-        pause(1000)
+        beDamaged(true)
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`tile49`, function (sprite, location) {
-    game.gameOver(true)
+    sprites.destroyAllSpritesOfKind(SpriteKind.Enemy)
+    sprites.destroyAllSpritesOfKind(SpriteKind.shootenemy)
+    sprites.destroyAllSpritesOfKind(SpriteKind.flyer)
+    scene.setBackgroundImage(img`
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8886688888888868888888888888888888888888888668888888886888888888888888888888888888866888888888688888888888888888888888888886688888888868888888888888888888888888
+        8666888888888668888888888888888888888868866688888888866888888888888888888888886886668888888886688888888888888888888888688666888888888668888888888888888888888868
+        8868866888668866888866888888888888888866886886688866886688886688888888888888886688688668886688668888668888888888888888668868866888668866888866888888888888888866
+        6666668868866866886866888888888888886676666666886886686688686688888888888888667666666688688668668868668888888888888866766666668868866866886866888888888888886676
+        6666688866866666866668888888888888666677666668886686666686666888888888888866667766666888668666668666688888888888886666776666688866866666866668888888888888666677
+        6666686666666676666688868888886668886667666668666666667666668886888888666888666766666866666666766666888688888866688866676666686666666676666688868888886668886667
+        6666666666666776677666668866688866888666666666666666677667766666886668886688866666666666666667766776666688666888668886666666666666666776677666668866688866888666
+        6666666666666766667766688677668866666666666666666666676666776668867766886666666666666666666667666677666886776688666666666666666666666766667766688677668866666666
+        66c666666666666666666668667776686666666666c666666666666666666668667776686666666666c666666666666666666668667776686666666666c6666666666666666666686677766866666666
+        66c6666666666666666666666c6776666666666666c6666666666666666666666c6776666666666666c6666666666666666666666c6776666666666666c6666666666666666666666c67766666666666
+        66c6666666666666666666666cc676666666666666c6666666666666666666666cc676666666666666c6666666666666666666666cc676666666666666c6666666666666666666666cc6766666666666
+        66c6666666fcc66666666ff66ccc66666666666666c6666666fcc66666666ff66ccc66666666666666c6666666fcc66666666ff66ccc66666666666666c6666666fcc66666666ff66ccc666666666666
+        66c666666ffdcc666666bbf666cc66666666666666c666666fffcc666666fff666cc66666666666666c666666fffcc666666fff666cc66666666666666c666666fffcc666666fff666cc666666666666
+        6cc666966ff66ccc6f666bff66cc6666666666666cc666966ff66ccc6f666bff66cc6666666666666cc666966ff66ccc6f666bff66cc6666666666666cc666966ff66ccc6f666bff66cc666666666666
+        6cc666bf66f6dfcccff66bff66ccc666666666666cc666bf66f6dfcccff66bff66ccc666666666666cc666bf66f6bfcccff66bff66ccc666666666666cc666bf66f6dfcccff66bff66ccc66666666666
+        6cc66bbffffbff6ccffbbbf6666cc666666666666cc66bbffffbff6ccffbbbf6666cc666666666666cc66bbffffbff6ccffbbbf6666cc666666666666cc66bbffffbff6ccffbbbf6666cc66666666666
+        ccc666bffffbff6ccffbbff66fdccc66f6666666ccc666bffffbff6ccffbbff66fdccc66f6666666ccc666bffffbff6ccffbbff66fdccc66f6666666ccc666bffffbff6ccffbbff66fdccc66f6666666
+        cccbb6bffffbfffcccfbbfffff6ccc66fff66666cccbb6bffffbfffcccfbbfffff6ccc66fff66666cccbb6bffffbfffcccfbbfffff6ccc66fff66666cccbb6bffffbfffcccfbbfffff6ccc66fff66666
+        ccc6bbbffffbffffccfbbffffb6cccf6ff666666ccc6bbbffffbffffccfbbffffb6cccf6ff666666ccc6bbbffffbffffccfbbffffb6cccf6ff666666ccc6bbbffffbffffccfbbffffb6cccf6ff666666
+        ccc6bbbfffbfffffcccbbffffbfcccffff66ff66ccc6bbbfffbfffffcccbbffffbfcccffff66ff66ccc6bbbfffbfffffcccbbffffbfcccffff66ff66ccc6bbbfffbfffffcccbbffffbfcccffff66ff66
+        cccbbbbfffbffffffccbbffffbfccccffffbfff6cccbbbbfffbffffffccbbffffbfccccffffbfff6cccbbbbfffbffffffccbbffffbfccccffffbfff6cccbbbbfffbffffffccbbffffbfccccffffbfff6
+        ccfbbbbffbbfffffffccffffbbfccccffffbffffccfbbbbffbbfffffffccffffbbfccccffffbffffccfbbbbffbbfffffffccffffbbfccccffffbffffccfbbbbffbbfffffffccffffbbfccccffffbffff
+        ccffbbbbbfffffffffcccfffbfffcccffffbffffccffbbbbbfffffffffcccfffbfffcccffffbffffccffbbbbbfffffffffcccfffbfffcccffffbffffccffbbbbbfffffffffcccfffbfffcccffffbffff
+        ccffbbbbffffffffffbccccbbfffcccffffbfffcccffbbbbffffffffffbccccbbfffcccffffbfffcccffbbbbffffffffffbccccbbfffcccffffbfffcccffbbbbffffffffffbccccbbfffcccffffbfffc
+        ccffbbbfffffffffffbbccccffffccccfffbfffcccffbbbfffffffffffbbccccffffccccfffbfffcccffbbbfffffffffffbbccccffffccccfffbfffcccffbbbfffffffffffbbccccffffccccfffbfffc
+        ccffbbbfffffffffffbbccccccffccccfffbfffcccffbbbfffffffffffbbccccccffccccfffbfffcccffbbbfffffffffffbbccccccffccccfffbfffcccffbbbfffffffffffbbccccccffccccfffbfffc
+        cffffbbffffffffffbbbbccccccccccccfffbffccffffbbffffffffffbbbbccccccccccccfffbffccffffbbffffffffffbbbbccccccccccccfffbffccffffbbffffffffffbbbbccccccccccccfffbffc
+        cffffbbbfffffffffbbfffffcccccccccfffbffccffffbbbfffffffffbbfffffcccccccccfffbffccffffbbbfffffffffbbfffffcccccccccfffbffccffffbbbfffffffffbbfffffcccccccccfffbffc
+        cffffbbbbffffffffbbffffffccccccccfffbfcccffffbbbbffffffffbbffffffccccccccfffbfcccffffbbbbffffffffbbffffffccccccccfffbfcccffffbbbbffffffffbbffffffccccccccfffbfcc
+        cffffbbbbbffffffbbbfffffffcccccccfffbccccffffbbbbbffffffbbbfffffffcccccccfffbccccffffbbbbbffffffbbbfffffffcccccccfffbccccffffbbbbbffffffbbbfffffffcccccccfffbccc
+        bbfffffbbbbbffffbbbfffffffffcccccfffccccbbfffffbbbbbffffbbbfffffffffcccccfffccccbbfffffbbbbbffffbbbfffffffffcccccfffccccbbfffffbbbbbffffbbbfffffffffcccccfffcccc
+        fbfffffbbbbbbbfbbbffffffffffcccccffccccffbfffffbbbbbbbfbbbffffffffffcccccffccccffbfffffbbbbbbbfbbbffffffffffcccccffccccffbfffffbbbbbbbfbbbffffffffffcccccffccccf
+        fbffffffbbbbbbbbbbffffffffffcccccffcccfffbffffffbbbbbbbbbbffffffffffcccccffcccfffbffffffbbbbbbbbbbffffffffffcccccffcccfffbffffffbbbbbbbbbbffffffffffcccccffcccff
+        fbffffffbbbbbbbbbfffffffffffcccccffccffffbffffffbbbbbbbbbfffffffffffcccccffccffffbffffffbbbbbbbbbfffffffffffcccccffccffffbffffffbbbbbbbbbfffffffffffcccccffccfff
+        fbbfffffbbbbbbbfffffffffffffcccccffccbfffbbfffffbbbbbbbfffffffffffffcccccffccbfffbbfffffbbbbbbbfffffffffffffcccccffccbfffbbfffffbbbbbbbfffffffffffffcccccffccbff
+        ffbbffffbbbbbbffffffffffffffcccccffccbffffbbffffbbbbbbffffffffffffffcccccffccbffffbbffffbbbbbbffffffffffffffcccccffccbffffbbffffbbbbbbffffffffffffffcccccffccbff
+        ffbbbfffbbbbbbffffffffffffffcccccfcccbbfffbbbfffbbbbbbffffffffffffffcccccfcccbbfffbbbfffbbbbbbffffffffffffffcccccfcccbbfffbbbfffbbbbbbffffffffffffffcccccfcccbbf
+        ffffbbbbbbbbbbfffffffffffffccccccfcccfbfffffbbbbbbbbbbfffffffffffffccccccfcccfbfffffbbbbbbbbbbfffffffffffffccccccfcccfbfffffbbbbbbbbbbfffffffffffffccccccfcccfbf
+        ffffbbbbbbbbbbfffffffffffffcccccccccffbfffffbbbbbbbbbbfffffffffffffcccccccccffbfffffbbbbbbbbbbfffffffffffffcccccccccffbfffffbbbbbbbbbbfffffffffffffcccccccccffbf
+        ffffffbbbbbbbbfffffffffffffcccccccccffbbffffffbbbbbbbbfffffffffffffcccccccccffbbffffffbbbbbbbbfffffffffffffcccccccccffbbffffffbbbbbbbbfffffffffffffcccccccccffbb
+        bfffffffbbbbbbffffffffffffcccccccccffffbbfffffffbbbbbbffffffffffffcccccccccffffbbfffffffbbbbbbffffffffffffcccccccccffffbbfffffffbbbbbbffffffffffffcccccccccffffb
+        bbfffffffbbbbbffffffffffffcccccccccfffffbbfffffffbbbbbffffffffffffcccccccccfffffbbfffffffbbbbbffffffffffffcccccccccfffffbbfffffffbbbbbffffffffffffcccccccccfffff
+        bbfffffffbbbbbffffffffffffccccccccffffffbbfffffffbbbbbffffffffffffccccccccffffffbbfffffffbbbbbffffffffffffccccccccffffffbbfffffffbbbbbffffffffffffccccccccffffff
+        fbfffffffbbbbbfffffffffffcccccccccfffffffbfffffffbbbbbfffffffffffcccccccccfffffffbfffffffbbbbbfffffffffffcccccccccfffffffbfffffffbbbbbfffffffffffcccccccccffffff
+        fbfffffffbbbbbfffffffffffcccccccccfffffffbfffffffbbbbbfffffffffffcccccccccfffffffbfffffffbbbbbfffffffffffcccccccccfffffffbfffffffbbbbbfffffffffffcccccccccffffff
+        fbfffffffbbbbbfffffffffffcccccccccfffffffbfffffffbbbbbfffffffffffcccccccccfffffffbfffffffbbbbbfffffffffffcccccccccfffffffbfffffffbbbbbfffffffffffcccccccccffffff
+        fbfffffffbbbbbfffffffffffcccccccccfffffffbfffffffbbbbbfffffffffffcccccccccfffffffbfffffffbbbbbfffffffffffcccccccccfffffffbfffffffbbbbbfffffffffffcccccccccffffff
+        fbbffffffbbbbbfffffffffffccccccccffffffffbbffffffbbbbbfffffffffffccccccccffffffffbbffffffbbbbbfffffffffffccccccccffffffffbbffffffbbbbbfffffffffffccccccccfffffff
+        fbbffffffbbbbbfffffffffffccccccccffffffffbbffffffbbbbbfffffffffffccccccccffffffffbbffffffbbbbbfffffffffffccccccccffffffffbbffffffbbbbbfffffffffffccccccccfffffff
+        bbbffffffbbbbbfffffffffffccccccccfffffffbbbffffffbbbbbfffffffffffccccccccfffffffbbbffffffbbbbbfffffffffffccccccccfffffffbbbffffffbbbbbfffffffffffccccccccfffffff
+        bbfffffffbbbbbfffffffffffccccccccfffffffbbfffffffbbbbbfffffffffffccccccccfffffffbbfffffffbbbbbfffffffffffccccccccfffffffbbfffffffbbbbbfffffffffffccccccccfffffff
+        bbfffffffbbbbbbffffffffffccccccccfffffffbbfffffffbbbbbbffffffffffccccccccfffffffbbfffffffbbbbbbffffffffffccccccccfffffffbbfffffffbbbbbbffffffffffccccccccfffffff
+        bbfffffffbbbbbbffffffffffccccccccfffffffbbfffffffbbbbbbffffffffffccccccccfffffffbbfffffffbbbbbbffffffffffccccccccfffffffbbfffffffbbbbbbffffffffffccccccccfffffff
+        bbfffffffbbbbbbffffffffffcccccccffffffffbbfffffffbbbbbbffffffffffcccccccffffffffbbfffffffbbbbbbffffffffffcccccccffffffffbbfffffffbbbbbbffffffffffcccccccffffffff
+        bffffffffbbbbbbffffffffffcccccccfffffffbbffffffffbbbbbbffffffffffcccccccfffffffbbffffffffbbbbbbffffffffffcccccccfffffffbbffffffffbbbbbbffffffffffcccccccfffffffb
+        bffffffffbbbbbbffffffffffcccccccffffffbbbffffffffbbbbbbffffffffffcccccccffffffbbbffffffffbbbbbbffffffffffcccccccffffffbbbffffffffbbbbbbffffffffffcccccccffffffbb
+        bffffffffbbbbbbffffffffffcccccccffffffbbbffffffffbbbbbbffffffffffcccccccffffffbbbffffffffbbbbbbffffffffffcccccccffffffbbbffffffffbbbbbbffffffffffcccccccffffffbb
+        fffffffffbbbbbbbfffffffffcccccccfffffbbbfffffffffbbbbbbbfffffffffcccccccfffffbbbfffffffffbbbbbbbfffffffffcccccccfffffbbbfffffffffbbbbbbbfffffffffcccccccfffffbbb
+        fffffffffbbbbbbbfffffffffcccccccfffffbbbfffffffffbbbbbbbfffffffffcccccccfffffbbbfffffffffbbbbbbbfffffffffcccccccfffffbbbfffffffffbbbbbbbfffffffffcccccccfffffbbb
+        fffffffffbbbbbbbfffffffffcccccccfffffbbbfffffffffbbbbbbbfffffffffcccccccfffffbbbfffffffffbbbbbbbfffffffffcccccccfffffbbbfffffffffbbbbbbbfffffffffcccccccfffffbbb
+        fffffffffbbbbbbbbffffffffcccccccffffbbbbfffffffffbbbbbbbbffffffffcccccccffffbbbbfffffffffbbbbbbbbffffffffcccccccffffbbbbfffffffffbbbbbbbbffffffffcccccccffffbbbb
+        fffffffffbbbbbbbbffffffffcccccccffffbbbbfffffffffbbbbbbbbffffffffcccccccffffbbbbfffffffffbbbbbbbbffffffffcccccccffffbbbbfffffffffbbbbbbbbffffffffcccccccffffbbbb
+        fffffffffbbbbbbbbffffffffcccccccffffbbbffffffffffbbbbbbbbffffffffcccccccffffbbbffffffffffbbbbbbbbffffffffcccccccffffbbbffffffffffbbbbbbbbffffffffcccccccffffbbbf
+        ffffffffffbbbbbbbbffffffccccccccffffbbbfffffffffffbbbbbbbbffffffccccccccffffbbbfffffffffffbbbbbbbbffffffccccccccffffbbbfffffffffffbbbbbbbbffffffccccccccffffbbbf
+        bfffffffffbbbbbbbbffffffccccccccbbbbbbbbbfffffffffbbbbbbbbffffffccccccccbbbbbbbbbfffffffffbbbbbbbbffffffccccccccbbbbbbbbbfffffffffbbbbbbbbffffffccccccccbbbbbbbb
+        bbbbbfffffbbbbbbbbffffffcccccccccbbbbbbbbbbbbfffffbbbbbbbbffffffcccccccccbbbbbbbbbbbbfffffbbbbbbbbffffffcccccccccbbbbbbbbbbbbfffffbbbbbbbbffffffcccccccccbbbbbbb
+        bbbbbbbbffbbbbbbbbbfffbbcccccccccbbbbbbbbbbbbbbbffbbbbbbbbbfffbbcccccccccbbbbbbbbbbbbbbbffbbbbbbbbbfffbbcccccccccbbbbbbbbbbbbbbbffbbbbbbbbbfffbbcccccccccbbbbbbb
+        bbbbbbbbbbbbbbbbbbbfbbbbcccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbfbbbbcccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbfbbbbcccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbfbbbbcccccccccbbbbbbb
+        bbbbbbbbbbbbbbbbbbbbbbbbccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccbbbbbb
+        bbbbbbbbbbbbbbbbbbbbbbbbccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccbbbbbb
+        bbbbbbbbbbbbbbbbbbbbbbbcccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccccccbbbbbb
+        bbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbb
+        bbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbb
+        bbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbb
+        bbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbbbbbbbbbbbbbbbbbbbbbbbbbccccccccccccbbbbb
+        bbbbbbbbbbbbbbbbbbb8888888888ccccccbbbbbbbbbbbbbbbbbbbbbbbb8888888888ccccccbbbbbbbbbbbbbbbbbbbbbbbb8888888888ccccccbbbbbbbbbbbbbbbbbbbbbbbb8888888888ccccccbbbbb
+        bbbbbbbbbbbbbb88888888888888888888cbbbbbbbbbbbbbbbbbbb88888888888888888888cbbbbbbbbbbbbbbbbbbb88888888888888888888cbbbbbbbbbbbbbbbbbbb88888888888888888888cbbbbb
+        bbbbbbbbbbb8888888888888888888888888bbbbbbbbbbbbbbb8888888888888888888888888bbbbbbbbbbbbbbb8888888888888888888888888bbbbbbbbbbbbbbb8888888888888888888888888bbbb
+        bbbbbbbb888888888888888888888888888888bbbbbbbbbb888888888888888888888888888888bbbbbbbbbb888888888888888888888888888888bbbbbbbbbb888888888888888888888888888888bb
+        bbbbb88888888888888888888888888888888888bbbbb88888888888888888888888888888888888bbbbb88888888888888888888888888888888888bbbbb88888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+        `)
+    tiles.loadMap(tiles.createSmallMap(tilemap`level5`))
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(2, 13))
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    if (!(info.life() > 9)) {
+        info.changeLifeBy(1)
+        mySprite.startEffect(effects.coolRadial, 1000)
+        mySprite.startEffect(effects.fountain, 1000)
+        sprites.destroy(otherSprite, effects.disintegrate, 500)
+        if (info.life() < 4) {
+            color.startFadeFromCurrent(color.originalPalette, 500)
+        }
+    } else {
+        mySprite.sayText("I don't need it.", 500, false)
+    }
 })
 function AttackAction () {
     if (face == 1) {
@@ -717,6 +652,16 @@ function AttackAction () {
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.flyer, function (sprite, otherSprite) {
     if (sprite.bottom < otherSprite.y && sprite.vy > 0) {
+        if (Math.percentChance(50)) {
+            heart = sprites.create(img`
+                . 2 . 2 . 
+                2 2 2 2 2 
+                2 2 2 2 2 
+                . 2 2 2 . 
+                . . 2 . . 
+                `, SpriteKind.Food)
+            heart.setPosition(otherSprite.x, otherSprite.y)
+        }
         death_animater = sprites.create(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -835,10 +780,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.flyer, function (sprite, otherSp
         otherSprite.destroy()
         mySprite.vy = -80
     } else {
-        info.changeLifeBy(-1)
-        mySprite.startEffect(effects.ashes, 1000)
-        scene.cameraShake(4, 500)
-        pause(1000)
+        beDamaged(true)
     }
 })
 function JumpAction () {
@@ -846,82 +788,18 @@ function JumpAction () {
         mySprite.vy = -150
     }
 }
-sprites.onOverlap(SpriteKind.Enemy, SpriteKind.attack, function (sprite, otherSprite) {
-    sprite.destroy()
-    death_animater = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.animater)
-    death_animater.ay = 500
-    death_animater.setPosition(otherSprite.x, otherSprite.y)
-    animation.runImageAnimation(
-    death_animater,
-    [img`
-        . . 1 1 1 1 . . 
-        . . f 1 f 1 . . 
-        . . 1 1 1 . . . 
-        . . . d . . . . 
-        . . 1 d 1 . . . 
-        . 1 . 1 . 1 . . 
-        . . 1 1 1 . . . 
-        . 1 . . . 1 . . 
-        `,img`
-        . . . . . 1 1 . 
-        . . . . . f . . 
-        . . 1 1 1 . 1 . 
-        1 1 . d . . . . 
-        f 1 1 d 1 . . . 
-        . 1 . 1 . 1 . . 
-        . . 1 1 1 . . . 
-        . 1 . . . 1 . . 
-        `,img`
-        . . . . . . . . 
-        . . . . . . . . 
-        . . 1 . . 1 1 . 
-        1 . 1 . . 1 . . 
-        f . f 1 1 . 1 . 
-        . 1 . 1 . 1 . . 
-        1 d 1 1 . . 1 . 
-        . 1 . . . . . 1 
-        `,img`
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        1 . . . . . . . 
-        f . . . . . 1 . 
-        1 . 1 . . 1 . . 
-        . 1 f 1 1 . 1 1 
-        1 d . 1 . 1 1 . 
-        `,img`
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        . . . . . . . . 
-        1 . 1 . 1 1 . . 
-        1 1 f 1 1 . 1 1 
-        f d . 1 . 1 1 . 
-        `],
-    100,
-    false
-    )
-})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (sprite.bottom < otherSprite.y && sprite.vy > 0) {
+        if (Math.percentChance(50)) {
+            heart = sprites.create(img`
+                . 2 . 2 . 
+                2 2 2 2 2 
+                2 2 2 2 2 
+                . 2 2 2 . 
+                . . 2 . . 
+                `, SpriteKind.Food)
+            heart.setPosition(otherSprite.x, otherSprite.y)
+        }
         death_animater = sprites.create(img`
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
@@ -996,15 +874,13 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
         otherSprite.destroy()
         mySprite.vy = -80
     } else {
-        scene.cameraShake(4, 500)
-        info.changeLifeBy(-1)
-        mySprite.startEffect(effects.ashes, 1000)
-        pause(1000)
+        beDamaged(true)
     }
 })
 let projectile2: Sprite = null
 let projectile: Sprite = null
 let mySprite2: Sprite = null
+let heart: Sprite = null
 let death_animater: Sprite = null
 let bat: Sprite = null
 let enemy2: Sprite = null
@@ -1449,9 +1325,6 @@ game.onUpdate(function () {
             }
         }
     }
-    if (mySprite2 != null) {
-        transformSprites.changeRotation(mySprite2, 2)
-    }
 })
 game.onUpdateInterval(1000, function () {
     for (let value4 of sprites.allOfKind(SpriteKind.shootenemy)) {
@@ -1555,4 +1428,7 @@ forever(function () {
     music.play(music.createSong(hex`0078000408040500001c00010a006400f401640000040000000000000000000000000005000004300040004400010d48004c00010f50005400019058005c00011260006400011468006c00019570007400011878007c00011405001c000f0a006400f4010a0000040000000000000000000000000000000002c00000000400011904000800019c08000c00011b0c001000011e10001400019c14001800012018001c00011e1c00200001a120002400011924002800019c28002c00011b2c003000011e30003400019c34003800012038003c00011e3c00400001a140004400011944004800019c48004c00011b4c005000011e50005400019c54005800012058005c00011e5c00600001a160006400011964006800019c68006c00011b6c007000011e70007400019c74007800012078007c0001a17c008000012007001c00020a006400f40164000004000000000000000000000000000000000330000000040001251000140001a32000240001a130003400012040004400011e50005400019c60006400011b70007400011808001c000e050046006603320000040a002d00000064001400013200020100021f000000100001192000300001974000500001956000700002141870008000011409010e02026400000403780000040a000301000000640001c80000040100000000640001640000040100000000fa0004af00000401c80000040a00019600000414000501006400140005010000002c0104dc00000401fa0000040a0001c8000004140005d0076400140005d0070000c800029001f40105c201f4010a0005900114001400039001000005c201f4010500058403050032000584030000fa00049001000005c201f4010500058403c80032000584030500640005840300009001049001000005c201f4010500058403c80064000584030500c8000584030000f40105ac0d000404a00f00000a0004ac0d2003010004a00f0000280004ac0d9001010004a00f0000280002d00700040408070f0064000408070000c80003c800c8000e7d00c80019000e64000f0032000e78000000fa00032c01c8000ee100c80019000ec8000f0032000edc000000fa0003f401c8000ea901c80019000e90010f0032000ea4010000fa0001c8000004014b000000c800012c01000401c8000000c8000190010004012c010000c80002c800000404c8000f0064000496000000c80002c2010004045e010f006400042c010000640002c409000404c4096400960004f6090000f40102b80b000404b80b64002c0104f40b0000f401022003000004200300040a000420030000ea01029001000004900100040a000490010000900102d007000410d0076400960010d0070000c80040010000010001050400050001060800090001050c000d0001061000110001051400150001061800190001051c001d0001062000210001052400250001062800290001052c002d0001063000310001053400350001063800390001053c003d0001064000410001054200430001074400450001064600470001074800490001054a004b0001074c004d0001064e004f0001075000510001055200530001075400550001065600570001075800590001055a005b0001075c005d0001065e005f00010760006100010561006200010862006300010763006400010864006500010665006600010866006700010767006800010868006900010569006a0001086a006b0001076b006c0001086c006d0001066d006e0001086e006f0001076f00700001087000710003050708740075000305070878007900030507087c007d0003050708`), music.PlaybackMode.UntilDone)
     music.play(music.createSong(hex`0078000408040600001c00010a006400f401640000040000000000000000000000000005000004d80000000400011904000800019c0c001000011910001400019c18001c00011e1c001e00011e1e002000011e20002400012024002800019c28002c00011b2c003000011930003200012032003400012034003600019c36003800019c38003a00011b3a003c00011b3c003e0001193e004000011940004400011944004800019c4c004e0001194e005000011950005400019c58005c00011e5e006000011e60006400012068006c00019c7000720001a17200740001a17400760001a17600780001a178007a0001207a007c0001207c007e0001207e008000012003001c0001dc00690000045e0100040000000000000000000005640001040003300020002800011928003000011830003800019738004000011660006800011968007000011870007800019778008000011805001c000f0a006400f4010a0000040000000000000000000000000000000002c00000000400011904000800011b08000c00019c0c001000011e10001400011914001800011b18001c00019c1c002000011e20002400012024002800019c28002c00011b2c003000011930003400012034003800019c38003c00011b3c004000011940004400011944004800011b48004c00019c4c005000011e50005400011954005800011b58005c00019c5c006000011e60006400012064006800019c68006c00011b6c007000011970007400012074007800019c78007c00011b7c008000011907001c00020a006400f4016400000400000000000000000000000000000000031c0000000400021925100014000297a320002400029ca830003400029eaa08001c000e050046006603320000040a002d00000064001400013200020100020c0000001000010d40005000010d09010e02026400000403780000040a000301000000640001c80000040100000000640001640000040100000000fa0004af00000401c80000040a00019600000414000501006400140005010000002c0104dc00000401fa0000040a0001c8000004140005d0076400140005d0070000c800029001f40105c201f4010a0005900114001400039001000005c201f4010500058403050032000584030000fa00049001000005c201f4010500058403c80032000584030500640005840300009001049001000005c201f4010500058403c80064000584030500c8000584030000f40105ac0d000404a00f00000a0004ac0d2003010004a00f0000280004ac0d9001010004a00f0000280002d00700040408070f0064000408070000c80003c800c8000e7d00c80019000e64000f0032000e78000000fa00032c01c8000ee100c80019000ec8000f0032000edc000000fa0003f401c8000ea901c80019000e90010f0032000ea4010000fa0001c8000004014b000000c800012c01000401c8000000c8000190010004012c010000c80002c800000404c8000f0064000496000000c80002c2010004045e010f006400042c010000640002c409000404c4096400960004f6090000f40102b80b000404b80b64002c0104f40b0000f401022003000004200300040a000420030000ea01029001000004900100040a000490010000900102d007000410d0076400960010d0070000c800a5000000010001000800090001001000110001001800190001001c001d000100200021000200062800290002000630003100020006380039000200063c003d00010040004100050003060708480049000200084e004f000106500051000100540055000106580059000200085c005d00010060006100020008640065000106680069000200086c006d00010670007100020008740075000106780079000200087c007d00020006`), music.PlaybackMode.UntilDone)
     music.play(music.createSong(hex`0078000408040500001c00010a006400f401640000040000000000000000000000000005000004d80000000400011904000800019c0c001000011910001400019c18001c00011e1c001e00011e1e002000011e20002400012024002800019c28002c00011b2c003000011930003200012032003400012034003600019c36003800019c38003a00011b3a003c00011b3c003e0001193e004000011940004400011944004800019c4c004e0001194e005000011950005400019c58005c00011e5e006000011e60006400012068006c00019c7000720001a17200740001a17400760001a17600780001a178007a0001207a007c0001207c007e0001207e008000012003001c0001dc00690000045e0100040000000000000000000005640001040003300020002800011928003000011b30003800019c38004000011e60006800012068007000019c7000780001a178008000012005001c000f0a006400f4010a0000040000000000000000000000000000000002c00000000400011904000800011b08000c00019c0c001000011e10001400011914001800011b18001c00019c1c002000011e20002400012024002800019c28002c00011b2c003000011930003400012034003800019c38003c00011b3c004000011940004400011944004800011b48004c00019c4c005000011e50005400011954005800011b58005c00019c5c006000011e60006400012064006800019c68006c00011b6c007000011970007400012074007800019c78007c00011b7c008000011908001c000e050046006603320000040a002d0000006400140001320002010002120000001000018b40005000018960007000010809010e02026400000403780000040a000301000000640001c80000040100000000640001640000040100000000fa0004af00000401c80000040a00019600000414000501006400140005010000002c0104dc00000401fa0000040a0001c8000004140005d0076400140005d0070000c800029001f40105c201f4010a0005900114001400039001000005c201f4010500058403050032000584030000fa00049001000005c201f4010500058403c80032000584030500640005840300009001049001000005c201f4010500058403c80064000584030500c8000584030000f40105ac0d000404a00f00000a0004ac0d2003010004a00f0000280004ac0d9001010004a00f0000280002d00700040408070f0064000408070000c80003c800c8000e7d00c80019000e64000f0032000e78000000fa00032c01c8000ee100c80019000ec8000f0032000edc000000fa0003f401c8000ea901c80019000e90010f0032000ea4010000fa0001c8000004014b000000c800012c01000401c8000000c8000190010004012c010000c80002c800000404c8000f0064000496000000c80002c2010004045e010f006400042c010000640002c409000404c4096400960004f6090000f40102b80b000404b80b64002c0104f40b0000f401022003000004200300040a000420030000ea01029001000004900100040a000490010000900102d007000410d0076400960010d0070000c800cb0000000100020006080009000200080e000f000106100011000100140015000106180019000200081c001d000200061e001f00010620002100020008240025000106280029000200082c002d00010630003100020008340035000106380039000200083c003d0002000640004100020006480049000200084e004f000106500051000100540055000106580059000200085c005d00010060006100020008640065000106680069000200086c006d00010670007100020008740075000106780079000200087c007d00020006`), music.PlaybackMode.UntilDone)
+})
+forever(function () {
+	
 })

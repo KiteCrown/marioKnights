@@ -10,7 +10,8 @@
         "arcade-premium-life": "github:jwunderl/arcade-premium-life#v0.2.1",
         "Timers": "github:microsoft/arcade-timers#v1.1.0",
         "Extra Effects": "github:alexszeto/extra-effects#v3.1.0",
-        "pxt-arcade-image-transform": "github:robo-technical-group/pxt-arcade-image-transform#v1.0.9"
+        "pxt-arcade-image-transform": "github:robo-technical-group/pxt-arcade-image-transform#v1.0.9",
+        "Color Fading": "github:jwunderl/pxt-color#v0.2.3"
     },
     "files": [
         "main.blocks",
