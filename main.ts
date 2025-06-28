@@ -1059,7 +1059,7 @@ function SetStage2 () {
         `)
     tiles.loadMap(tiles.createSmallMap(tilemap`level28`))
     tiles.placeOnTile(mySprite, tiles.getTileLocation(92, 9))
-    for (let value of tiles.getTilesByType(assets.tile`myTile18`)) {
+    for (let value4 of tiles.getTilesByType(assets.tile`myTile18`)) {
         windCreater = sprites.create(img`
             . . 5 5 5 5 . . 
             . 5 5 5 5 5 5 . 
@@ -1070,8 +1070,8 @@ function SetStage2 () {
             . 5 5 5 5 1 5 . 
             . . 5 5 1 5 . . 
             `, SpriteKind.winder)
-        tiles.placeOnTile(windCreater, value)
-        tiles.setTileAt(value, assets.tile`transparency8`)
+        tiles.placeOnTile(windCreater, value4)
+        tiles.setTileAt(value4, assets.tile`transparency8`)
         animation.runImageAnimation(
         windCreater,
         [img`
@@ -1115,7 +1115,7 @@ function SetStage2 () {
         true
         )
     }
-    for (let value2 of tiles.getTilesByType(assets.tile`myTile`)) {
+    for (let value23 of tiles.getTilesByType(assets.tile`myTile`)) {
         enemy1 = sprites.create(img`
             . . 1 1 1 1 . . 
             . . 1 f 1 f . . 
@@ -1126,7 +1126,7 @@ function SetStage2 () {
             . . . 1 1 1 . . 
             . . 1 . . . 1 . 
             `, SpriteKind.Enemy)
-        tiles.placeOnTile(enemy1, value2)
+        tiles.placeOnTile(enemy1, value23)
         animation.runImageAnimation(
         enemy1,
         [img`
@@ -1171,9 +1171,9 @@ function SetStage2 () {
         )
         enemy1.ay = 500
         enemy1.setVelocity(30, 0)
-        tiles.setTileAt(value2, assets.tile`transparency8`)
+        tiles.setTileAt(value23, assets.tile`transparency8`)
     }
-    for (let value22 of tiles.getTilesByType(assets.tile`myTile2`)) {
+    for (let value222 of tiles.getTilesByType(assets.tile`myTile2`)) {
         enemy2 = sprites.create(img`
             . . 2 2 2 2 2 . 
             . 2 2 2 f f f 2 
@@ -1184,11 +1184,11 @@ function SetStage2 () {
             . . 2 2 f f 2 . 
             . 2 2 2 f f 2 . 
             `, SpriteKind.shootenemy)
-        tiles.placeOnTile(enemy2, value22)
+        tiles.placeOnTile(enemy2, value222)
         enemy2.ay = 500
-        tiles.setTileAt(value22, assets.tile`transparency8`)
+        tiles.setTileAt(value222, assets.tile`transparency8`)
     }
-    for (let value3 of tiles.getTilesByType(assets.tile`myTile3`)) {
+    for (let value32 of tiles.getTilesByType(assets.tile`myTile3`)) {
         bat2 = sprites.create(img`
             . 1 1 1 1 1 . 
             1 1 1 1 1 1 1 
@@ -1199,12 +1199,12 @@ function SetStage2 () {
             1 1 1 f 1 1 1 
             1 . 1 . 1 . 1 
             `, SpriteKind.bat)
-        tiles.placeOnTile(bat2, value3)
+        tiles.placeOnTile(bat2, value32)
         bat2.vx = 30
         bat2.setBounceOnWall(true)
-        tiles.setTileAt(value3, assets.tile`transparency8`)
+        tiles.setTileAt(value32, assets.tile`transparency8`)
     }
-    for (let value22 of tiles.getTilesByType(assets.tile`myTile20`)) {
+    for (let value223 of tiles.getTilesByType(assets.tile`myTile20`)) {
         chaosWizard = sprites.create(img`
             . . 2 f f 2 2 . 
             . 2 2 f f f f 2 
@@ -1215,67 +1215,10 @@ function SetStage2 () {
             . 2 2 f f f f 2 
             . 2 . 2 . f . 2 
             `, SpriteKind.chaos_shooter)
-        tiles.placeOnTile(chaosWizard, value22)
+        tiles.placeOnTile(chaosWizard, value223)
         chaosWizard.ay = 500
         chaosWizard.setVelocity(20, 0)
-        tiles.setTileAt(value22, assets.tile`transparency8`)
-    }
-    for (let value2 of tiles.getTilesByType(assets.tile`myTile21`)) {
-        dropper = sprites.create(img`
-            8 . . . . . . 8 
-            8 8 . . . . 8 8 
-            . 8 8 8 8 8 8 . 
-            . . 8 8 8 8 . . 
-            . . 8 9 9 9 . . 
-            . . 8 2 9 2 . . 
-            . . 8 9 9 9 . . 
-            . . 8 8 8 8 . . 
-            `, SpriteKind.dropper)
-        tiles.placeOnTile(dropper, value2)
-        animation.runImageAnimation(
-        dropper,
-        [img`
-            8 . . . . . . 8 
-            8 8 . . . . 8 8 
-            . 8 8 8 8 8 8 . 
-            . . 8 8 8 8 . . 
-            . . 8 9 9 9 . . 
-            . . 8 2 9 2 . . 
-            . . 8 9 9 9 . . 
-            . . 8 8 8 8 . . 
-            `,img`
-            8 . . . . . . 8 
-            8 8 8 8 8 8 8 8 
-            . . 8 8 8 8 . . 
-            . . 8 9 9 9 . . 
-            . . 8 2 9 2 . . 
-            . . 8 9 9 9 . . 
-            . . 8 8 8 8 . . 
-            . . . . . . . . 
-            `,img`
-            8 . 8 8 8 8 . 8 
-            8 8 8 8 8 8 8 8 
-            . . 8 9 9 9 . . 
-            . . 8 2 9 2 . . 
-            . . 8 9 9 9 . . 
-            . . 8 8 8 8 . . 
-            . . . . . . . . 
-            . . . . . . . . 
-            `,img`
-            8 . . . . . . 8 
-            8 8 8 8 8 8 8 8 
-            . . 8 8 8 8 . . 
-            . . 8 9 9 9 . . 
-            . . 8 2 9 2 . . 
-            . . 8 9 9 9 . . 
-            . . 8 8 8 8 . . 
-            . . . . . . . . 
-            `],
-        500,
-        true
-        )
-        enemy1.ay = 0
-        tiles.setTileAt(value2, assets.tile`transparency8`)
+        tiles.setTileAt(value223, assets.tile`transparency8`)
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.wind4, function (sprite, otherSprite) {
@@ -1868,7 +1811,6 @@ let chaosProjectile: Sprite = null
 let projectile: Sprite = null
 let projectile2: Sprite = null
 let projectile3: Sprite = null
-let dropper: Sprite = null
 let chaosWizard: Sprite = null
 let windCreater: Sprite = null
 let boss1: Sprite = null
@@ -1881,17 +1823,17 @@ let bat2: Sprite = null
 let enemy2: Sprite = null
 let enemy1: Sprite = null
 let mySprite: Sprite = null
-let bat3 = null
 let textSprite = null
+let bat3 = null
 SetInitValue()
 SetUI()
 SetStage2()
 game.onUpdate(function () {
-    for (let value222 of sprites.allOfKind(SpriteKind.Enemy)) {
-        if (value222.isHittingTile(CollisionDirection.Left)) {
-            value222.vx = 30
+    for (let value2222 of sprites.allOfKind(SpriteKind.Enemy)) {
+        if (value2222.isHittingTile(CollisionDirection.Left)) {
+            value2222.vx = 30
             animation.runImageAnimation(
-            value222,
+            value2222,
             [img`
                 . . 1 1 1 1 . . 
                 . . 1 f 1 f . . 
@@ -1932,10 +1874,10 @@ game.onUpdate(function () {
             100,
             true
             )
-        } else if (value222.isHittingTile(CollisionDirection.Right)) {
-            value222.vx = -30
+        } else if (value2222.isHittingTile(CollisionDirection.Right)) {
+            value2222.vx = -30
             animation.runImageAnimation(
-            value222,
+            value2222,
             [img`
                 . . 1 1 1 1 . . 
                 . . f 1 f 1 . . 
@@ -1977,12 +1919,11 @@ game.onUpdate(function () {
             true
             )
         }
-        if (!(value222.isHittingTile(CollisionDirection.Bottom))) {
-            value222.vx = -1 * value222.vx
-            value222.ay = 500
-            if (value222.vx == 30) {
+        if (!(value2222.isHittingTile(CollisionDirection.Bottom))) {
+            value2222.vx = -1 * value2222.vx
+            if (value2222.vx == 30) {
                 animation.runImageAnimation(
-                value222,
+                value2222,
                 [img`
                     . . 1 1 1 1 . . 
                     . . 1 f 1 f . . 
@@ -2025,7 +1966,7 @@ game.onUpdate(function () {
                 )
             } else {
                 animation.runImageAnimation(
-                value222,
+                value2222,
                 [img`
                     . . 1 1 1 1 . . 
                     . . f 1 f 1 . . 
@@ -2160,15 +2101,15 @@ game.onUpdate(function () {
     }
 })
 game.onUpdate(function () {
-    for (let value222 of sprites.allOfKind(SpriteKind.chaos_shooter)) {
-        if (value222.isHittingTile(CollisionDirection.Left)) {
-            value222.vx = 10
-        } else if (value222.isHittingTile(CollisionDirection.Right)) {
-            value222.vx = -10
+    for (let value2223 of sprites.allOfKind(SpriteKind.chaos_shooter)) {
+        if (value2223.isHittingTile(CollisionDirection.Left)) {
+            value2223.vx = 10
+        } else if (value2223.isHittingTile(CollisionDirection.Right)) {
+            value2223.vx = -10
         }
-        if (!(value222.isHittingTile(CollisionDirection.Bottom))) {
-            value222.vx = -1 * value222.vx
-            value222.image.flipX()
+        if (!(value2223.isHittingTile(CollisionDirection.Bottom))) {
+            value2223.vx = -1 * value2223.vx
+            value2223.image.flipX()
         }
     }
 })
@@ -2215,55 +2156,6 @@ game.onUpdateInterval(700, function () {
         }
     }
 })
-game.onUpdateInterval(700, function () {
-    for (let value of sprites.allOfKind(SpriteKind.dropper)) {
-        if (value.bottom < mySprite.y && mySprite.vy > 0) {
-            animation.runImageAnimation(
-            value,
-            [img`
-                8 . . . . . . 8 
-                8 8 . . . . 8 8 
-                . 8 8 8 8 8 8 . 
-                . . 8 8 8 8 . . 
-                . . 8 9 9 9 . . 
-                . . 8 2 9 2 . . 
-                . . 8 9 9 9 . . 
-                . . 8 8 8 8 . . 
-                `,img`
-                . . . . . . . . 
-                . 8 . . . . 8 . 
-                8 8 8 8 8 8 8 8 
-                8 . 8 8 8 8 . 8 
-                . . 8 9 9 9 . . 
-                . . 8 2 9 2 . . 
-                . . 8 9 9 9 . . 
-                . . 8 8 8 8 . . 
-                `,img`
-                . . . . . . . . 
-                . 8 . . . . 8 . 
-                . 8 8 8 8 8 8 . 
-                . 8 8 8 8 8 8 . 
-                . . 8 9 9 9 . . 
-                . . 8 2 9 2 . . 
-                . . 8 9 9 9 . . 
-                . . 8 8 8 8 . . 
-                `,img`
-                . . . . . . . . 
-                . . 8 . . 8 . . 
-                . 8 8 8 8 8 8 . 
-                . 8 8 8 8 8 8 . 
-                . . 8 9 9 9 . . 
-                . . 8 2 9 2 . . 
-                . . 8 9 9 9 . . 
-                . . 8 8 8 8 . . 
-                `],
-            100,
-            false
-            )
-            value.ay = 500
-        }
-    }
-})
 game.onUpdateInterval(1000, function () {
     for (let value52 of sprites.allOfKind(SpriteKind.bat)) {
         projectile2 = sprites.createProjectileFromSprite(img`
@@ -2302,8 +2194,8 @@ game.onUpdateInterval(1000, function () {
     }
 })
 game.onUpdateInterval(1000, function () {
-    for (let value4 of sprites.allOfKind(SpriteKind.shootenemy)) {
-        if (mySprite.x > value4.x) {
+    for (let value42 of sprites.allOfKind(SpriteKind.shootenemy)) {
+        if (mySprite.x > value42.x) {
             projectile = sprites.createProjectileFromSprite(img`
                 . . . . 8 a a 8 . . 
                 . 8 8 a 9 9 9 a 8 . 
@@ -2315,8 +2207,8 @@ game.onUpdateInterval(1000, function () {
                 . . . . . . . . . . 
                 . . . . . . . . . . 
                 . . . . . . . . . . 
-                `, value4, 50, 0)
-            value4.setImage(img`
+                `, value42, 50, 0)
+            value42.setImage(img`
                 . . 2 2 2 2 2 . 
                 . 2 2 2 f f f 2 
                 . 2 2 f 9 f 9 2 
@@ -2338,8 +2230,8 @@ game.onUpdateInterval(1000, function () {
                 . . . . . . . . . . 
                 . . . . . . . . . . 
                 . . . . . . . . . . 
-                `, value4, -50, 0)
-            value4.setImage(img`
+                `, value42, -50, 0)
+            value42.setImage(img`
                 . 2 2 2 2 2 . . 
                 2 f f f 2 2 2 . 
                 2 9 f 9 f 2 2 . 
@@ -2353,7 +2245,7 @@ game.onUpdateInterval(1000, function () {
     }
 })
 game.onUpdateInterval(1000, function () {
-    for (let value4 of sprites.allOfKind(SpriteKind.chaos_shooter)) {
+    for (let value43 of sprites.allOfKind(SpriteKind.chaos_shooter)) {
         chaosProjectile = sprites.createProjectileFromSprite(img`
             . . . . . . . . 
             . 2 2 2 . . . . 
@@ -2363,7 +2255,7 @@ game.onUpdateInterval(1000, function () {
             2 1 1 1 2 2 2 . 
             . 2 2 2 . . . . 
             . . . . . . . . 
-            `, value4, -100, 0)
+            `, value43, -100, 0)
         chaosProjectile = sprites.createProjectileFromSprite(img`
             . . . . . . . . 
             . . . . 2 2 2 . 
@@ -2373,11 +2265,11 @@ game.onUpdateInterval(1000, function () {
             . 2 2 2 1 1 1 2 
             . . . . 2 2 2 . 
             . . . . . . . . 
-            `, value4, 100, 0)
+            `, value43, 100, 0)
     }
 })
 game.onUpdateInterval(1500, function () {
-    for (let value5 of sprites.allOfKind(SpriteKind.winder)) {
+    for (let value53 of sprites.allOfKind(SpriteKind.winder)) {
         projectile4 = sprites.createProjectileFromSprite(img`
             . . . . . 1 1 . 
             . 1 . . 1 . . 1 
@@ -2387,7 +2279,7 @@ game.onUpdateInterval(1500, function () {
             . . 1 . 1 . . . 
             . . 1 . 1 . . . 
             . . 1 . . 1 . . 
-            `, value5, 0, -100)
+            `, value53, 0, -100)
         projectile4.setKind(SpriteKind.wind)
         projectile4 = sprites.createProjectileFromSprite(img`
             . . 1 . . 1 . . 
@@ -2398,7 +2290,7 @@ game.onUpdateInterval(1500, function () {
             1 . . 1 . 1 . 1 
             1 . . 1 . . 1 . 
             . 1 1 . . . . . 
-            `, value5, 0, 100)
+            `, value53, 0, 100)
         projectile4.setKind(SpriteKind.wind2)
         projectile4 = sprites.createProjectileFromSprite(img`
             . 1 1 1 . . . . 
@@ -2409,7 +2301,7 @@ game.onUpdateInterval(1500, function () {
             . . 1 1 1 1 1 1 
             . 1 . . . . . . 
             . . 1 1 . . . . 
-            `, value5, -100, 0)
+            `, value53, -100, 0)
         projectile4.setKind(SpriteKind.wind3)
         wind222 = sprites.createProjectileFromSprite(img`
             . . . . 1 1 1 . 
@@ -2420,7 +2312,7 @@ game.onUpdateInterval(1500, function () {
             1 1 1 1 1 1 . . 
             . . . . . . 1 . 
             . . . . 1 1 . . 
-            `, value5, 100, 0)
+            `, value53, 100, 0)
         wind222.setKind(SpriteKind.wind4)
     }
 })
