@@ -12,6 +12,7 @@ namespace SpriteKind {
     export const wind3 = SpriteKind.create()
     export const wind4 = SpriteKind.create()
     export const chaos_shooter = SpriteKind.create()
+    export const dropper = SpriteKind.create()
 }
 function SetStage1 () {
     scene.setBackgroundImage(img`
@@ -289,7 +290,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.bat, function (sprite, otherSpri
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Player)
+            `, SpriteKind.animater)
         death_animater.setPosition(otherSprite.x, otherSprite.y)
         animation.runImageAnimation(
         death_animater,
@@ -873,7 +874,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, ot
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Player)
+            `, SpriteKind.animater)
         death_animater.setPosition(otherSprite.x, otherSprite.y)
         animation.runImageAnimation(
         death_animater,
@@ -1057,7 +1058,7 @@ function SetStage2 () {
         8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
         `)
     tiles.loadMap(tiles.createSmallMap(tilemap`level28`))
-    tiles.placeOnTile(mySprite, tiles.getTileLocation(8, 13))
+    tiles.placeOnTile(mySprite, tiles.getTileLocation(92, 9))
     for (let value of tiles.getTilesByType(assets.tile`myTile18`)) {
         windCreater = sprites.create(img`
             . . 5 5 5 5 . . 
@@ -1219,6 +1220,63 @@ function SetStage2 () {
         chaosWizard.setVelocity(20, 0)
         tiles.setTileAt(value22, assets.tile`transparency8`)
     }
+    for (let value2 of tiles.getTilesByType(assets.tile`myTile21`)) {
+        dropper = sprites.create(img`
+            8 . . . . . . 8 
+            8 8 . . . . 8 8 
+            . 8 8 8 8 8 8 . 
+            . . 8 8 8 8 . . 
+            . . 8 9 9 9 . . 
+            . . 8 2 9 2 . . 
+            . . 8 9 9 9 . . 
+            . . 8 8 8 8 . . 
+            `, SpriteKind.dropper)
+        tiles.placeOnTile(dropper, value2)
+        animation.runImageAnimation(
+        dropper,
+        [img`
+            8 . . . . . . 8 
+            8 8 . . . . 8 8 
+            . 8 8 8 8 8 8 . 
+            . . 8 8 8 8 . . 
+            . . 8 9 9 9 . . 
+            . . 8 2 9 2 . . 
+            . . 8 9 9 9 . . 
+            . . 8 8 8 8 . . 
+            `,img`
+            8 . . . . . . 8 
+            8 8 8 8 8 8 8 8 
+            . . 8 8 8 8 . . 
+            . . 8 9 9 9 . . 
+            . . 8 2 9 2 . . 
+            . . 8 9 9 9 . . 
+            . . 8 8 8 8 . . 
+            . . . . . . . . 
+            `,img`
+            8 . 8 8 8 8 . 8 
+            8 8 8 8 8 8 8 8 
+            . . 8 9 9 9 . . 
+            . . 8 2 9 2 . . 
+            . . 8 9 9 9 . . 
+            . . 8 8 8 8 . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            `,img`
+            8 . . . . . . 8 
+            8 8 8 8 8 8 8 8 
+            . . 8 8 8 8 . . 
+            . . 8 9 9 9 . . 
+            . . 8 2 9 2 . . 
+            . . 8 9 9 9 . . 
+            . . 8 8 8 8 . . 
+            . . . . . . . . 
+            `],
+        500,
+        true
+        )
+        enemy1.ay = 0
+        tiles.setTileAt(value2, assets.tile`transparency8`)
+    }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.wind4, function (sprite, otherSprite) {
     mySprite.vx = 150
@@ -1275,7 +1333,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.shootenemy, function (sprite, ot
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Player)
+            `, SpriteKind.animater)
         death_animater.ay = 500
         death_animater.setPosition(otherSprite.x, otherSprite.y)
         animation.runImageAnimation(
@@ -1557,6 +1615,158 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
 sprites.onOverlap(SpriteKind.Player, SpriteKind.wind2, function (sprite, otherSprite) {
     mySprite.vy = 150
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.chaos_shooter, function (sprite, otherSprite) {
+    if (sprite.bottom < otherSprite.y && sprite.vy > 0) {
+        if (Math.percentChance(50)) {
+            heart = sprites.create(img`
+                . 2 . 2 . 
+                2 2 2 2 2 
+                2 2 2 2 2 
+                . 2 2 2 . 
+                . . 2 . . 
+                `, SpriteKind.Food)
+            heart.setPosition(otherSprite.x, otherSprite.y)
+        }
+        death_animater = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.animater)
+        death_animater.ay = 500
+        death_animater.setPosition(otherSprite.x, otherSprite.y)
+        animation.runImageAnimation(
+        death_animater,
+        [img`
+            . 2 f f 2 2 . . 
+            2 2 f f f f 2 . 
+            2 f 2 f f 2 f . 
+            f f 2 f f 2 f . 
+            f f f f f f f . 
+            f f f 2 2 f f . 
+            2 2 f f f f 2 . 
+            2 . 2 . f . 2 . 
+            `,img`
+            . 2 f f 2 2 . . 
+            2 2 f . f f 2 . 
+            2 f 2 f f 2 f . 
+            f f 2 f f 2 f . 
+            f f f f f f f . 
+            f f f 2 2 f . . 
+            2 2 f f f f 2 . 
+            2 . 2 . f . 2 . 
+            `,img`
+            . 2 f f 2 2 . . 
+            2 2 f . f f 2 . 
+            2 f 2 f f 2 f . 
+            f f . f f 2 f . 
+            f f . f f . f . 
+            f . f 2 2 f . . 
+            2 2 f f . f 2 . 
+            . . 2 . f . 2 . 
+            `,img`
+            . 2 f f 2 2 . . 
+            2 . f . f f 2 . 
+            2 f 2 f . 2 f . 
+            f f . f f 2 f . 
+            . f . f f . f . 
+            f . f 2 2 f . . 
+            2 2 f . . f 2 . 
+            . . 2 . f . 2 . 
+            `,img`
+            . 2 f f 2 2 . . 
+            2 . f . f . 2 . 
+            2 f 2 . . 2 f . 
+            f f . . f 2 f . 
+            . f . f . . f . 
+            f . f 2 2 f . . 
+            2 2 . . . f 2 . 
+            . . . . f . 2 . 
+            `,img`
+            . 2 f f . 2 . . 
+            . . . . f . 2 . 
+            2 f 2 . . 2 f . 
+            f . . . f 2 . . 
+            . f . f . . f . 
+            f . f 2 2 f . . 
+            2 2 . . . f 2 . 
+            . . . . . . . . 
+            `,img`
+            . 2 f f . 2 . . 
+            . . . . f . 2 . 
+            2 f . . . 2 . . 
+            f . . . . 2 . . 
+            . . . f . . f . 
+            f . f 2 . f . . 
+            2 . . . . f . . 
+            . . . . . . . . 
+            `,img`
+            . . . f . 2 . . 
+            . . . . f . 2 . 
+            . . . . . . . . 
+            f . . . . 2 . . 
+            . . . f . . . . 
+            . . f 2 . f . . 
+            2 . . . . . . . 
+            . . . . . . . . 
+            `,img`
+            . . . f . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            f . . . . . . . 
+            . . . f . . . . 
+            . . f 2 . f . . 
+            2 . . . . . . . 
+            . . . . . . . . 
+            `,img`
+            . . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            f . . . . . . . 
+            . . . . . . . . 
+            . . f . . f . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            `,img`
+            . . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            f . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            `,img`
+            . . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            . . . . . . . . 
+            `],
+        50,
+        false
+        )
+        otherSprite.destroy()
+        mySprite.vy = -80
+    } else {
+        beDamaged(true)
+    }
+})
 function JumpAction () {
     if (mySprite.isHittingTile(CollisionDirection.Bottom)) {
         mySprite.vy = -150
@@ -1592,7 +1802,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
-            `, SpriteKind.Player)
+            `, SpriteKind.animater)
         death_animater.ay = 500
         death_animater.setPosition(otherSprite.x, otherSprite.y)
         animation.runImageAnimation(
@@ -1658,6 +1868,7 @@ let chaosProjectile: Sprite = null
 let projectile: Sprite = null
 let projectile2: Sprite = null
 let projectile3: Sprite = null
+let dropper: Sprite = null
 let chaosWizard: Sprite = null
 let windCreater: Sprite = null
 let boss1: Sprite = null
@@ -1768,7 +1979,7 @@ game.onUpdate(function () {
         }
         if (!(value222.isHittingTile(CollisionDirection.Bottom))) {
             value222.vx = -1 * value222.vx
-            value222.image.flipX()
+            value222.ay = 500
             if (value222.vx == 30) {
                 animation.runImageAnimation(
                 value222,
@@ -2001,6 +2212,55 @@ game.onUpdateInterval(700, function () {
                 . . . . . . . . . . . . . . . . 
                 . . . . . . . . . . . . . . . . 
                 `, boss1, -100, 0)
+        }
+    }
+})
+game.onUpdateInterval(700, function () {
+    for (let value of sprites.allOfKind(SpriteKind.dropper)) {
+        if (value.bottom < mySprite.y && mySprite.vy > 0) {
+            animation.runImageAnimation(
+            value,
+            [img`
+                8 . . . . . . 8 
+                8 8 . . . . 8 8 
+                . 8 8 8 8 8 8 . 
+                . . 8 8 8 8 . . 
+                . . 8 9 9 9 . . 
+                . . 8 2 9 2 . . 
+                . . 8 9 9 9 . . 
+                . . 8 8 8 8 . . 
+                `,img`
+                . . . . . . . . 
+                . 8 . . . . 8 . 
+                8 8 8 8 8 8 8 8 
+                8 . 8 8 8 8 . 8 
+                . . 8 9 9 9 . . 
+                . . 8 2 9 2 . . 
+                . . 8 9 9 9 . . 
+                . . 8 8 8 8 . . 
+                `,img`
+                . . . . . . . . 
+                . 8 . . . . 8 . 
+                . 8 8 8 8 8 8 . 
+                . 8 8 8 8 8 8 . 
+                . . 8 9 9 9 . . 
+                . . 8 2 9 2 . . 
+                . . 8 9 9 9 . . 
+                . . 8 8 8 8 . . 
+                `,img`
+                . . . . . . . . 
+                . . 8 . . 8 . . 
+                . 8 8 8 8 8 8 . 
+                . 8 8 8 8 8 8 . 
+                . . 8 9 9 9 . . 
+                . . 8 2 9 2 . . 
+                . . 8 9 9 9 . . 
+                . . 8 8 8 8 . . 
+                `],
+            100,
+            false
+            )
+            value.ay = 500
         }
     }
 })
